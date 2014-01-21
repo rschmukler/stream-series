@@ -1,56 +1,37 @@
-var Stream = require('stream').Stream;
+var PauseStream = require('pause-stream');
 
 module.exports = function() {
   var streams = Array.prototype.slice.call(arguments),
       pending = streams.length;
 
-  var stream = new Stream();
-  stream.writable = stream.readable = true;
+  var stream = new PauseStream();
 
   var buffers = new Array(pending),
       ended = new Array(pending);
 
-
   streams.forEach(function(e, i) {
-    buffers[i] = [];
-    e.on('data', function(data) {
-      buffers[i].push(data);
-    });
-
-    e.on('end', function() {
-      ended[i] = true;
-    });
+    // normalize for badly behaved streams
+    var pauseStream = new PauseStream();
+    e.pipe(pauseStream);
+    pauseStream.pause();
+    streams[i] = pauseStream;
   });
 
-  var i = 0;
   function next() {
-    var e = streams[i],
-        buffer = buffers[i],
-        finished = ended[i];
-
-    buffer.forEach(function(data) {
-      stream.emit('data', data);
-    });
-
-    if(!finished) {
-      e.pipe(stream, {end: false});
-      e.on('end', finish);
-    } else {
-      finish();
-    }
+    var e = streams.shift();
+    e.pipe(stream, {end: false});
+    e.on('end', finish);
+    e.resume();
     function finish() {
       if(!--pending) return stream.emit('end');
-      ++i;
       next();
     }
   }
 
-  stream.write = function(data) {
-    this.emit('data', data);
-  };
-
+  var originalDestroy = stream.destroy;
   stream.destroy = function() {
     streams.forEach(function(e) { if(e.destroy) e.destroy(); });
+    originalDestroy.call(stream);
   };
 
   next();
