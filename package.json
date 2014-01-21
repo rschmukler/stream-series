@@ -1,25 +1,25 @@
 {
-  "name": "stream-waterfall",
+  "name": "stream-series",
   "version": "0.1.0",
   "description": "Waterfalls for streams",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -w"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://git@github.com/rschmukler/stream-waterfall"
+    "url": "git://git@github.com/rschmukler/stream-series"
   },
   "keywords": [
     "stream",
     "control",
     "flow",
-    "waterfall"
+    "series"
   ],
   "author": "Ryan Schmukler <ryan@slingingcode.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rschmukler/stream-waterfall/issues"
+    "url": "https://github.com/rschmukler/stream-series/issues"
   },
   "devDependencies": {
     "expect.js": "~0.2.0",

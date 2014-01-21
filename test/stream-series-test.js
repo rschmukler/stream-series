@@ -1,6 +1,6 @@
 var expect = require('expect.js'),
     Stream = require('stream').Stream,
-    waterfall = require('../'),
+    series = require('../'),
     es = require('event-stream');
 
 describe('stream-waterfall', function() {
@@ -23,7 +23,7 @@ describe('stream-waterfall', function() {
       done();
     });
 
-    waterfall(firstStream, thirdStream, secondStream).pipe(writer);
+    series(firstStream, thirdStream, secondStream).pipe(writer);
     firstStream.end(1);
     secondStream.end(2);
     thirdStream.end(3);
