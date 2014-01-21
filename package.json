@@ -1,0 +1,24 @@
+{
+  "name": "stream-waterfall",
+  "version": "0.1.0",
+  "description": "Waterfalls for streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://git@github.com/rschmukler/stream-waterfall"
+  },
+  "keywords": [
+    "stream",
+    "control",
+    "flow",
+    "waterfall"
+  ],
+  "author": "Ryan Schmukler <ryan@slingingcode.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rschmukler/stream-waterfall/issues"
+  }
+}
