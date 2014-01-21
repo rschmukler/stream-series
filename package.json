@@ -20,5 +20,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rschmukler/stream-waterfall/issues"
+  },
+  "devDependencies": {
+    "expect.js": "~0.2.0",
+    "event-stream": "~3.1.0"
   }
 }
