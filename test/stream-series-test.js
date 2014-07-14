@@ -3,6 +3,33 @@ var expect = require('expect.js'),
     series = require('../'),
     es = require('event-stream');
 
+describe('streams-array', function(){
+  it('Accepts streams as arguments or as an array', function(){
+    var streamNames = ['one', 'two', 'three', 'four', 'five'],
+        streams = [],
+        expected = [];
+
+    streamNames.map(function(e, i){
+      var stream = es.through(function write(data){
+        data.name = e;
+        this.emit('data', data);
+      });
+      streams.push(stream);
+      expected.push({val: i, name: e});
+    });
+
+    var writer = es.through(function(data) {
+      expect(data).to.be.eql(expected[data.val]);
+    });
+
+    series(streams).pipe(writer);
+
+    for(var i = 0; i < streamNames.length; i++){
+      streams[i].end({val:i});
+    }
+  });
+});
+
 describe('stream-waterfall', function() {
   it('waits for one stream to end before calling the next', function(done) {
     var firstStream = es.through(function(data) {
