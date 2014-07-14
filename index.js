@@ -1,8 +1,16 @@
 var PauseStream = require('pause-stream');
 
-module.exports = function() {
-  var streams = Array.prototype.slice.call(arguments),
-      pending = streams.length;
+module.exports = function(input) {
+  var streams;
+  if(input instanceof Array){
+    streams = input;
+  }
+  else {
+    streams = arguments;
+  }
+    streams = Array.prototype.slice.call(streams);
+  
+  var pending = streams.length;
 
   var stream = new PauseStream();
 
