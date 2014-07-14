@@ -1,6 +1,6 @@
 {
   "name": "stream-series",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Waterfalls for streams",
   "main": "index.js",
   "scripts": {
